@@ -102,7 +102,7 @@ export function Services() {
   // bento spans for 7 cards on a 3-column grid
   const spans = ["lg:col-span-2", "", "", "", "", "", "lg:col-span-2"];
   return (
-    <section id="help" className="relative py-28 md:py-40">
+    <section id="help" className="relative py-12 md:py-16">
       <div className="wrap">
         <div className="grid gap-10 lg:grid-cols-[1.3fr_1fr] lg:items-end">
           <SectionHeading eyebrow="How I help" title="Your journey starts with the right advice." />
@@ -114,13 +114,13 @@ export function Services() {
           </Reveal>
         </div>
 
-        <div className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 md:mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {SERVICES.map((s, i) => (
             <ServiceCard key={s.title} s={s} i={i} span={spans[i]} />
           ))}
         </div>
 
-        <div className="mt-20 grid grid-cols-2 gap-px overflow-hidden rounded-3xl border border-white/[0.08] bg-white/[0.08] md:grid-cols-4">
+        <div className="mt-12 grid grid-cols-2 gap-px overflow-hidden rounded-3xl border border-white/[0.08] bg-white/[0.08] md:grid-cols-4">
           {STATS.map((s, i) => (
             <Reveal key={s.label} delay={i * 0.08} className="bg-night p-8">
               <p className="font-display text-6xl font-extrabold text-gradient">

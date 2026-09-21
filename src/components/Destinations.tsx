@@ -111,7 +111,7 @@ export function Destinations() {
       : "No close matches for this combination. Send your profile and I'll look at it personally.";
 
   return (
-    <section id="destinations" className="relative py-28 md:py-40">
+    <section id="destinations" className="relative py-12 md:py-16">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-[600px] bg-[radial-gradient(50%_60%_at_50%_0%,rgba(56,189,248,0.10),transparent)]" />
       <div className="wrap relative">
         <SectionHeading
@@ -120,7 +120,7 @@ export function Destinations() {
           lede="Your academic background may open doors in more than one country. Tell me a little about yourself and see where to start the conversation."
         />
 
-        <div className="mt-16 grid items-start gap-6 lg:grid-cols-[340px_1fr]">
+        <div className="mt-10 md:mt-12 grid items-start gap-6 lg:grid-cols-[340px_1fr]">
           <motion.aside
             className="glass rounded-[28px] p-6 lg:sticky lg:top-28"
             initial={{ opacity: 0, x: -40 }}

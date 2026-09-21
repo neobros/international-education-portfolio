@@ -42,9 +42,10 @@ export function Nav() {
               solid || open ? "glass shadow-[0_10px_40px_-15px_rgba(0,0,0,0.6)]" : "border border-transparent"
             }`}
           >
-            <a href="#top" className="flex items-center gap-3" onClick={() => toggle(false)}>
-              <span className="grid size-9 place-items-center rounded-full bg-gradient-to-br from-wattle to-ochre font-display text-sm font-extrabold text-night">
-                {PROFILE.initials}
+            <a href="#top" className="group flex items-center gap-3" onClick={() => toggle(false)}>
+              <span className="relative size-10 shrink-0 rounded-full bg-gradient-to-br from-wattle via-coral to-reef p-[2px] transition-transform duration-500 group-hover:scale-105">
+                <img src={PROFILE.avatar} alt={PROFILE.name} width={40} height={40} className="size-full rounded-full bg-night object-cover" />
+                <span className="absolute -bottom-0.5 -right-0.5 size-3 rounded-full border-2 border-night bg-reef" />
               </span>
               <span className="leading-tight">
                 <span className="block whitespace-nowrap font-display text-[15px] font-bold">{PROFILE.name}</span>

@@ -9,7 +9,7 @@ export function Stories() {
   const shown = STORIES.filter((s) => filter === "all" || s.r === filter);
 
   return (
-    <section id="stories" className="relative overflow-hidden py-28 md:py-36">
+    <section id="stories" className="relative overflow-hidden py-12 md:py-16">
       <div className="fade-y pointer-events-none absolute inset-0 bg-[radial-gradient(60%_50%_at_20%_30%,rgba(124,58,237,0.16),transparent),radial-gradient(50%_40%_at_90%_80%,rgba(255,122,82,0.12),transparent)]" />
       <div className="wrap relative">
         <div className="flex flex-wrap items-end justify-between gap-8">
@@ -105,7 +105,7 @@ function ReviewCard({ r }: { r: (typeof REVIEWS)[number] }) {
 export function Reviews() {
   const row = [...REVIEWS, ...REVIEWS];
   return (
-    <section id="reviews" className="relative py-28 md:py-36">
+    <section id="reviews" className="relative py-12 md:py-16">
       <div className="wrap">
         <SectionHeading eyebrow="Reviews" title="What students say." />
       </div>
