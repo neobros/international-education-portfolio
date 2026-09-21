@@ -54,7 +54,7 @@ export function About() {
   const imgScale = useTransform(scrollYProgress, [0, 0.5], [1.2, 1]);
 
   return (
-    <section id="about" ref={ref} className="relative py-28 md:py-40">
+    <section id="about" ref={ref} className="relative py-12 md:py-16">
       <div className="wrap grid items-center gap-16 lg:grid-cols-[440px_1fr]">
         <motion.div
           className="relative mx-auto w-full max-w-[440px]"
@@ -111,7 +111,7 @@ export function Process() {
   const line = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
   return (
-    <section id="process" className="relative overflow-hidden rounded-[40px] bg-sand py-28 text-earth md:mx-4 md:py-36">
+    <section id="process" className="relative overflow-clip rounded-[40px] bg-sand py-12 text-earth md:mx-4 md:py-16">
       <div className="pointer-events-none absolute -right-40 -top-40 size-[520px] rounded-full bg-[radial-gradient(circle,rgba(255,122,82,0.35),transparent_65%)] blur-2xl" />
       <div className="wrap relative grid gap-16 lg:grid-cols-[1fr_1.3fr]">
         <div className="lg:sticky lg:top-32 lg:self-start">

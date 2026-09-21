@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
 import { ArrowUp, ArrowUpRight } from "lucide-react";
 import { DISCLAIMER, NAV, PROFILE, ROUTE, SOCIALS, TOPICS } from "../data/content";
@@ -8,7 +8,7 @@ import { Button, EASE, Reveal, SectionHeading, SplitWords } from "./ui";
 
 export function Social() {
   return (
-    <section id="social" className="relative py-28 md:py-36">
+    <section id="social" className="relative py-12 md:py-16">
       <div className="wrap">
         <SectionHeading eyebrow="Social" title="Follow my education journey." />
         <div className="mt-14 grid grid-cols-2 gap-3 md:grid-cols-5">
@@ -57,40 +57,102 @@ export function Social() {
   );
 }
 
+// Background images: public/images/final-cta.webp (2400 x 1200) and public/images/final-cta-mobile.webp (1080 x 1600).
+// If they're missing, the section falls back to the aurora gradient.
+const FLIGHT_PATH = "M -40 520 C 260 520, 420 180, 760 220 S 1180 470, 1640 120";
+
 export function FinalCta() {
   const ref = useRef<HTMLElement>(null);
+  const [hasImage, setHasImage] = useState(true);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "center center"] });
+  const { scrollYProgress: through } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const scale = useTransform(scrollYProgress, [0, 1], [0.88, 1]);
   const radius = useTransform(scrollYProgress, [0, 1], [80, 40]);
+  const imgY = useTransform(through, [0, 1], ["-10%", "10%"]);
+  const draw = useTransform(scrollYProgress, [0.15, 1], [0, 1]);
 
   return (
-    <section ref={ref} className="px-3 py-10 md:px-4">
-      <motion.div style={{ scale, borderRadius: radius }} className="relative overflow-hidden bg-deep py-28 md:py-40">
-        <Aurora />
-        <div className="grid-lines pointer-events-none absolute inset-0" />
+    <section ref={ref} id="final-cta" className="px-3 py-6 md:px-4">
+      <motion.div style={{ scale, borderRadius: radius }} className="relative overflow-hidden bg-deep py-20 md:py-28">
+        {/* background image: slow zoom + scroll parallax */}
+        {hasImage ? (
+          <motion.div style={{ y: imgY }} className="absolute -inset-y-[12%] inset-x-0">
+            <motion.picture
+              className="block size-full"
+              animate={{ scale: [1, 1.08, 1] }}
+              transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <source media="(max-width: 767px)" srcSet="/images/final-cta-mobile.webp" />
+              <img src="/images/final-cta.webp" alt="" loading="lazy" onError={() => setHasImage(false)} className="size-full object-cover" />
+            </motion.picture>
+          </motion.div>
+        ) : (
+          <Aurora />
+        )}
+        {/* colour grade: keeps text readable and matches the site */}
+        <div className="absolute inset-0 bg-[radial-gradient(70%_60%_at_50%_45%,rgba(7,13,28,0.55),rgba(7,13,28,0.9))]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-night/60 via-transparent to-night/80" />
+        <div className="absolute inset-0 bg-[radial-gradient(40%_50%_at_15%_20%,rgba(255,122,82,0.25),transparent),radial-gradient(40%_50%_at_85%_85%,rgba(45,212,191,0.18),transparent)]" />
+
+        {/* flight path drawn with scroll, plane flying along it */}
+        <svg viewBox="0 0 1600 700" preserveAspectRatio="xMidYMid slice" className="pointer-events-none absolute inset-0 size-full" aria-hidden>
+          <defs>
+            <linearGradient id="cta-trail" x1="0" x2="1">
+              <stop offset="0" stopColor="#2dd4bf" stopOpacity="0" />
+              <stop offset="0.4" stopColor="#ffb23f" />
+              <stop offset="1" stopColor="#ff5a36" />
+            </linearGradient>
+          </defs>
+          <path d={FLIGHT_PATH} fill="none" stroke="rgba(255,255,255,0.12)" strokeWidth="2" strokeDasharray="4 12" />
+          <motion.path d={FLIGHT_PATH} fill="none" stroke="url(#cta-trail)" strokeWidth="3" strokeLinecap="round" style={{ pathLength: draw }} />
+          <g className="cta-plane" style={{ offsetPath: `path("${FLIGHT_PATH}")` }}>
+            <path d="M16 0 L-10 -9 L-4 0 L-10 9 Z" fill="#ffb23f" />
+          </g>
+        </svg>
+
+        {/* twinkling city lights */}
+        {Array.from({ length: 14 }).map((_, i) => (
+          <motion.span
+            key={i}
+            aria-hidden
+            className="pointer-events-none absolute size-1 rounded-full bg-wattle shadow-[0_0_8px_2px_rgba(255,178,63,0.6)]"
+            style={{ left: `${(i * 37) % 100}%`, top: `${15 + ((i * 53) % 70)}%` }}
+            animate={{ opacity: [0, 1, 0], scale: [0.6, 1.2, 0.6] }}
+            transition={{ duration: 2.5 + (i % 4), repeat: Infinity, delay: i * 0.4, ease: "easeInOut" }}
+          />
+        ))}
+
         <div className="wrap relative text-center">
           <Reveal y={16}>
             <span className="eyebrow justify-center">Your next chapter</span>
           </Reveal>
-          <SplitWords as="h2" text="Your future has more than one destination." className="mx-auto mt-6 max-w-[14ch] font-display text-[clamp(44px,8vw,120px)] font-extrabold leading-[0.92]" />
+          <SplitWords
+            as="h2"
+            text="Your future has more than one destination."
+            className="mx-auto mt-6 max-w-[14ch] font-display text-[clamp(44px,8vw,120px)] font-extrabold leading-[0.92] drop-shadow-[0_6px_40px_rgba(7,13,28,0.8)]"
+          />
           <Reveal delay={0.2}>
-            <p className="mx-auto mt-8 max-w-[44ch] text-lg text-ink/70">Let's find the option that fits your profile, goals and future.</p>
+            <p className="mx-auto mt-8 max-w-[44ch] text-lg text-ink/80">Let's find the option that fits your profile, goals and future.</p>
           </Reveal>
 
-          <div className="relative mx-auto mt-12 max-w-4xl overflow-hidden" aria-label="Australia, New Zealand, UK, Europe, Asia, Canada, UAE">
+          <div className="relative mx-auto mt-12 max-w-4xl" aria-label="Australia, New Zealand, UK, Europe, Asia, Canada, UAE">
             <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 font-mono text-sm md:text-base">
               {ROUTE.map((r, i) => (
                 <motion.span
                   key={r.c}
                   className="flex items-center gap-3"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, y: 20, scale: 0.8 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
                   viewport={{ once: true }}
-                  transition={{ delay: 0.3 + i * 0.1, duration: 0.6, ease: EASE }}
+                  transition={{ delay: 0.3 + i * 0.1, type: "spring", stiffness: 260, damping: 18 }}
                 >
-                  <span className={`rounded-full px-3 py-1.5 ${i === 0 ? "bg-gradient-to-r from-wattle to-ochre font-bold text-night" : "border border-white/15 text-wattle"}`}>
+                  <motion.span
+                    className={`rounded-full px-3 py-1.5 backdrop-blur ${i === 0 ? "bg-gradient-to-r from-wattle to-ochre font-bold text-night" : "border border-white/15 bg-night/40 text-wattle"}`}
+                    animate={i === 0 ? { boxShadow: ["0 0 0 0 rgba(255,178,63,0.6)", "0 0 0 12px rgba(255,178,63,0)"] } : undefined}
+                    transition={i === 0 ? { duration: 1.8, repeat: Infinity } : undefined}
+                  >
                     {r.f} {r.c}
-                  </span>
+                  </motion.span>
                   {i < ROUTE.length - 1 && <span className="text-mute">✈</span>}
                 </motion.span>
               ))}
@@ -114,9 +176,14 @@ export function Footer() {
     <footer className="relative overflow-hidden pt-20">
       <div className="wrap">
         <div className="flex flex-wrap items-start justify-between gap-10 border-b border-white/[0.08] pb-12">
-          <div>
-            <p className="font-display text-2xl font-bold">{PROFILE.name}</p>
-            <p className="text-mute">{PROFILE.role}</p>
+          <div className="flex items-center gap-4">
+            <span className="size-16 shrink-0 rounded-full bg-gradient-to-br from-wattle via-coral to-reef p-[2px]">
+              <img src={PROFILE.avatar} alt="" loading="lazy" className="size-full rounded-full bg-night object-cover" />
+            </span>
+            <div>
+              <p className="font-display text-2xl font-bold">{PROFILE.name}</p>
+              <p className="text-mute">{PROFILE.role}</p>
+            </div>
           </div>
           <nav aria-label="Footer">
             <ul className="grid grid-cols-2 gap-x-12 gap-y-2 text-sm text-ink/75">

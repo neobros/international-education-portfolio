@@ -6,14 +6,14 @@ import { Button, EASE, Reveal, SectionHeading, spotlight } from "./ui";
 
 export function Credentials() {
   return (
-    <section id="credentials" className="relative py-28 md:py-36">
+    <section id="credentials" className="relative py-12 md:py-16">
       <div className="wrap">
         <SectionHeading
           eyebrow="Credentials"
           title="Professional registrations you can trust."
           lede="Education guidance backed by recognised industry registrations. Each new registration is added here as it's granted."
         />
-        <div className="mt-16 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-10 md:mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           {CREDENTIALS.map((c, i) => (
             <motion.div
               key={c.country}
@@ -96,20 +96,20 @@ function GalleryTile({ p, i }: { p: (typeof PARTNERSHIPS)[number]; i: number }) 
 
 export function Partnerships() {
   return (
-    <section id="partnerships" className="relative py-28 md:py-36">
+    <section id="partnerships" className="relative py-12 md:py-16">
       <div className="wrap">
         <SectionHeading
           eyebrow="Partnerships"
           title="Building connections across global education."
           lede="Relationships with universities, institutions and industry partners across multiple international markets."
         />
-        <div className="mt-16 grid auto-rows-[220px] grid-cols-1 gap-4 sm:grid-cols-2 md:auto-rows-[240px] md:grid-cols-4">
+        <div className="mt-10 md:mt-12 grid auto-rows-[220px] grid-cols-1 gap-4 sm:grid-cols-2 md:auto-rows-[240px] md:grid-cols-4">
           {PARTNERSHIPS.map((p, i) => (
             <GalleryTile key={i} p={p} i={i} />
           ))}
         </div>
 
-        <Reveal className="mt-24">
+        <Reveal className="mt-12">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
               <span className="eyebrow">Trusted partners</span>
@@ -120,7 +120,7 @@ export function Partnerships() {
         </Reveal>
       </div>
 
-      <div className="group mt-10 space-y-4 [mask-image:linear-gradient(90deg,transparent,#000_8%,#000_92%,transparent)]">
+      <div className="group mt-8 space-y-4 [mask-image:linear-gradient(90deg,transparent,#000_8%,#000_92%,transparent)]">
         {[PARTNERS.slice(0, Math.ceil(PARTNERS.length / 2)), PARTNERS.slice(Math.ceil(PARTNERS.length / 2))].map((row, r) => (
           <div key={r} className="overflow-hidden">
             <div
@@ -198,7 +198,7 @@ function TourCard({ t, i }: { t: (typeof TOURS)[number]; i: number }) {
 
 export function Tours() {
   return (
-    <section id="tours" className="relative py-28 md:py-36">
+    <section id="tours" className="relative py-12 md:py-16">
       <div className="wrap">
         <div className="flex flex-wrap items-end justify-between gap-8">
           <SectionHeading eyebrow="University tours" title="Explore universities with me." lede="Real campuses and first-hand information from visits." />
@@ -208,7 +208,7 @@ export function Tours() {
             </Button>
           </Reveal>
         </div>
-        <div className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-10 md:mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {TOURS.map((t, i) => (
             <TourCard key={i} t={t} i={i} />
           ))}
