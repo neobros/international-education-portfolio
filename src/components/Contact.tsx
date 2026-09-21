@@ -136,7 +136,7 @@ Countries considering: ${v.countries || "-"}`;
   });
 
   return (
-    <section id="contact" className="relative overflow-hidden py-28 md:py-40">
+    <section id="contact" className="relative overflow-clip py-12 md:py-16">
       <div className="fade-y pointer-events-none absolute inset-0 bg-[radial-gradient(50%_50%_at_0%_50%,rgba(255,122,82,0.16),transparent),radial-gradient(40%_50%_at_100%_100%,rgba(45,212,191,0.12),transparent)]" />
       <div className="wrap relative grid items-start gap-14 lg:grid-cols-[1fr_1.2fr]">
         <div className="lg:sticky lg:top-32">

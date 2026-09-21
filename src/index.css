@@ -194,6 +194,18 @@
   .field-input[aria-invalid="true"] { border-color: #fb7185; }
 }
 
+/* plane flying along the final CTA flight path */
+.cta-plane {
+  offset-rotate: auto;
+  animation: cta-fly 9s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+@keyframes cta-fly {
+  0% { offset-distance: 0%; opacity: 0; }
+  8% { opacity: 1; }
+  92% { opacity: 1; }
+  100% { offset-distance: 100%; opacity: 0; }
+}
+
 @property --angle {
   syntax: "<angle>";
   initial-value: 0deg;

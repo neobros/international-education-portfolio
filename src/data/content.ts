@@ -6,6 +6,7 @@ export const PROFILE = {
   firstName: "Thejan",
   lastName: "Marasinhe",
   initials: "TM",
+  avatar: "/images/avatar-thejan.webp",
   role: "International Education Consultant",
   focus: "Australia",
 };

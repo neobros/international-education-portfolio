@@ -89,7 +89,7 @@ export function Australia() {
 
   return (
     <>
-      <section id="australia" className="relative overflow-hidden py-28 md:py-36">
+      <section id="australia" className="relative overflow-hidden py-12 md:py-16">
         <div className="fade-y pointer-events-none absolute inset-0 bg-[radial-gradient(60%_50%_at_80%_20%,rgba(255,122,82,0.18),transparent),radial-gradient(50%_50%_at_10%_80%,rgba(45,212,191,0.12),transparent)]" />
         <div className="wrap relative grid gap-14 lg:grid-cols-[1.1fr_1fr] lg:items-center">
           <div>
