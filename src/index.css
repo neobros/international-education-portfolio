@@ -194,6 +194,19 @@
   .field-input[aria-invalid="true"] { border-color: #fb7185; }
 }
 
+/* hero 3D stage: orbiting plane + rotating ring of countries */
+@keyframes spin3d {
+  from { transform: rotateY(0deg); }
+  to { transform: rotateY(360deg); }
+}
+@keyframes billboard {
+  from { transform: rotateX(var(--untilt)) rotateY(0deg); }
+  to { transform: rotateX(var(--untilt)) rotateY(-360deg); }
+}
+.orbit-spin { animation: spin3d var(--orbit-time, 16s) linear infinite; }
+.ring-spin { animation: spin3d var(--ring-time, 30s) linear infinite; }
+.billboard { animation: billboard var(--ring-time, 30s) linear infinite; }
+
 /* plane flying along the final CTA flight path */
 .cta-plane {
   offset-rotate: auto;
