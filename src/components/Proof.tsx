@@ -1,7 +1,8 @@
-import { useRef, useState } from "react";
-import { motion, useScroll, useTransform } from "motion/react";
-import { BadgeCheck, Camera, Hourglass, Play } from "lucide-react";
+import { useCallback, useEffect, useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
+import { BadgeCheck, ChevronLeft, ChevronRight, Hourglass, Maximize2, Play, X } from "lucide-react";
 import { CREDENTIALS, PARTNERS, PARTNERSHIPS, TOURS } from "../data/content";
+import { lockScroll } from "../lib/scroll";
 import { Button, EASE, Reveal, SectionHeading, spotlight } from "./ui";
 
 export function Credentials() {
@@ -57,44 +58,130 @@ export function Credentials() {
   );
 }
 
-function GalleryTile({ p, i }: { p: (typeof PARTNERSHIPS)[number]; i: number }) {
-  const ref = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], ["-12%", "12%"]);
-  const hues = [
-    "from-ochre/60 via-fuchsia-700/40 to-indigo-900",
-    "from-reef/50 via-sky-700/40 to-indigo-950",
-    "from-wattle/50 via-orange-700/40 to-rose-950",
-    "from-sky-500/40 via-violet-700/40 to-night",
-    "from-pink-500/40 via-orange-800/30 to-night",
-  ];
+/** Bento tile for one partnership photo. */
+function GalleryTile({ p, i, span, onOpen }: { p: (typeof PARTNERSHIPS)[number]; i: number; span: string; onOpen: () => void }) {
   return (
-    <motion.figure
-      ref={ref}
-      className={`group relative m-0 overflow-hidden rounded-[28px] border border-white/[0.08] ${i === 0 ? "row-span-2 md:col-span-2" : ""}`}
-      initial={{ clipPath: "inset(100% 0 0 0)" }}
-      whileInView={{ clipPath: "inset(0% 0 0 0)" }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 1.2, delay: i * 0.08, ease: [0.76, 0, 0.24, 1] }}
+    <motion.button
+      type="button"
+      onClick={onOpen}
+      className={`group relative overflow-hidden rounded-[22px] border border-white/[0.08] text-left ${span}`}
+      initial={{ opacity: 0, y: 40, scale: 0.96 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, amount: 0.1 }}
+      transition={{ duration: 0.8, delay: (i % 4) * 0.07, ease: EASE }}
     >
-      {/* Replace this placeholder with <img src="..." className="absolute inset-[-12%] h-[124%] w-full object-cover" /> */}
-      <motion.div style={{ y }} className={`absolute inset-[-12%] bg-gradient-to-br ${hues[i % hues.length]} transition-transform duration-700 group-hover:scale-110`}>
-        <div className="grid-lines absolute inset-0 opacity-60" />
-      </motion.div>
-      <div className="absolute inset-0 grid place-items-center text-white/60">
-        <span className="flex flex-col items-center gap-2 text-xs font-semibold uppercase tracking-widest">
-          <Camera className="size-6" /> Add photo
-        </span>
-      </div>
-      <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-night/95 via-night/50 to-transparent p-5 pt-16">
-        <p className="font-semibold">{p.caption}</p>
-        <p className="mt-1 text-xs text-ink/65">{p.place}</p>
-      </figcaption>
-    </motion.figure>
+      <img
+        src={p.src}
+        alt={p.caption}
+        loading="lazy"
+        className="absolute inset-0 size-full object-cover transition-transform duration-700 group-hover:scale-110"
+      />
+      <span className="absolute inset-0 bg-gradient-to-t from-night via-night/35 to-transparent opacity-80 transition-opacity duration-500 group-hover:opacity-95" />
+      <span className="absolute inset-x-0 bottom-0 p-4">
+        <span className="block text-sm font-semibold leading-snug">{p.caption}</span>
+        {p.place && <span className="mt-0.5 block text-xs text-ink/60">{p.place}</span>}
+      </span>
+      <span className="absolute right-3 top-3 grid size-9 place-items-center rounded-full bg-night/70 opacity-0 backdrop-blur transition group-hover:opacity-100">
+        <Maximize2 className="size-4" />
+      </span>
+    </motion.button>
   );
 }
 
+/** Full-screen viewer with keyboard and arrow navigation. */
+function Lightbox({ index, onClose, onStep }: { index: number; onClose: () => void; onStep: (dir: number) => void }) {
+  const p = PARTNERSHIPS[index];
+  useEffect(() => {
+    lockScroll(true);
+    const key = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+      if (e.key === "ArrowRight") onStep(1);
+      if (e.key === "ArrowLeft") onStep(-1);
+    };
+    window.addEventListener("keydown", key);
+    return () => {
+      lockScroll(false);
+      window.removeEventListener("keydown", key);
+    };
+  }, [onClose, onStep]);
+
+  return (
+    <motion.div
+      className="fixed inset-0 z-[80] grid place-items-center p-4"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      role="dialog"
+      aria-modal="true"
+      aria-label={p.caption}
+    >
+      <div className="absolute inset-0 bg-night/85 backdrop-blur-md" onClick={onClose} />
+      <motion.figure
+        key={p.src}
+        className="relative m-0 max-h-[86vh] w-full max-w-[1100px]"
+        initial={{ scale: 0.94, y: 30, opacity: 0 }}
+        animate={{ scale: 1, y: 0, opacity: 1 }}
+        exit={{ scale: 0.96, opacity: 0 }}
+        transition={{ duration: 0.45, ease: EASE }}
+      >
+        <img src={p.src} alt={p.caption} className="max-h-[72vh] w-full rounded-2xl object-contain" />
+        <figcaption className="mt-4 text-center">
+          <p className="font-semibold">{p.caption}</p>
+          {p.place && <p className="mt-1 text-sm text-mute">{p.place}</p>}
+          <p className="mt-1 font-mono text-xs text-mute">
+            {index + 1} / {PARTNERSHIPS.length}
+          </p>
+        </figcaption>
+      </motion.figure>
+
+      <button onClick={onClose} className="absolute right-4 top-4 grid size-12 place-items-center rounded-full border border-white/15 bg-night/60 transition hover:rotate-90 hover:bg-white/10" aria-label="Close">
+        <X className="size-5" />
+      </button>
+      <button
+        onClick={() => onStep(-1)}
+        className="absolute left-2 top-1/2 grid size-12 -translate-y-1/2 place-items-center rounded-full border border-white/15 bg-night/60 transition hover:bg-white/10 md:left-6"
+        aria-label="Previous photo"
+      >
+        <ChevronLeft className="size-6" />
+      </button>
+      <button
+        onClick={() => onStep(1)}
+        className="absolute right-2 top-1/2 grid size-12 -translate-y-1/2 place-items-center rounded-full border border-white/15 bg-night/60 transition hover:bg-white/10 md:right-6"
+        aria-label="Next photo"
+      >
+        <ChevronRight className="size-6" />
+      </button>
+    </motion.div>
+  );
+}
+
+// bento pattern: a few tiles get extra width or height
+const TILE_SPANS = [
+  "col-span-2 row-span-2",
+  "",
+  "row-span-2",
+  "",
+  "col-span-2",
+  "",
+  "row-span-2",
+  "col-span-2 row-span-2",
+  "",
+  "",
+  "col-span-2",
+  "",
+  "row-span-2",
+  "",
+  "col-span-2",
+  "",
+  "",
+  "",
+];
+
 export function Partnerships() {
+  const [open, setOpen] = useState<number | null>(null);
+  const close = useCallback(() => setOpen(null), []);
+  const step = useCallback((dir: number) => setOpen((i) => (i === null ? i : (i + dir + PARTNERSHIPS.length) % PARTNERSHIPS.length)), []);
+
   return (
     <section id="partnerships" className="relative py-12 md:py-16">
       <div className="wrap">
@@ -103,9 +190,9 @@ export function Partnerships() {
           title="Building connections across global education."
           lede="Relationships with universities, institutions and industry partners across multiple international markets."
         />
-        <div className="mt-10 md:mt-12 grid auto-rows-[220px] grid-cols-1 gap-4 sm:grid-cols-2 md:auto-rows-[240px] md:grid-cols-4">
+        <div className="mt-10 grid auto-rows-[150px] grid-cols-2 gap-3 sm:grid-cols-3 md:auto-rows-[180px] lg:grid-cols-4">
           {PARTNERSHIPS.map((p, i) => (
-            <GalleryTile key={i} p={p} i={i} />
+            <GalleryTile key={p.src} p={p} i={i} span={TILE_SPANS[i % TILE_SPANS.length]} onOpen={() => setOpen(i)} />
           ))}
         </div>
 
@@ -139,6 +226,8 @@ export function Partnerships() {
           </div>
         ))}
       </div>
+
+      <AnimatePresence>{open !== null && <Lightbox index={open} onClose={close} onStep={step} />}</AnimatePresence>
     </section>
   );
 }
