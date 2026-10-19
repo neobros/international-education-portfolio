@@ -4,6 +4,51 @@ import { Play, Quote, Star } from "lucide-react";
 import { REVIEWS, STORIES, STORY_FILTERS } from "../data/content";
 import { Button, EASE, Reveal, SectionHeading } from "./ui";
 
+/** Story card media: poster + play button, swapped for the YouTube player on click. */
+function StoryVideo({ s }: { s: (typeof STORIES)[number] }) {
+  const [playing, setPlaying] = useState(false);
+  return (
+    <div className="relative aspect-[4/5] overflow-hidden bg-gradient-to-b from-indigo-900/60 via-deep to-night">
+      {playing && s.youtubeId ? (
+        <iframe
+          className="absolute inset-0 size-full"
+          src={`https://www.youtube-nocookie.com/embed/${s.youtubeId}?autoplay=1`}
+          title={`Student story from ${s.country}`}
+          allow="autoplay; encrypted-media; picture-in-picture"
+          allowFullScreen
+        />
+      ) : (
+        <>
+          {s.youtubeId ? (
+            <img
+              src={`https://i.ytimg.com/vi/${s.youtubeId}/hqdefault.jpg`}
+              alt=""
+              loading="lazy"
+              className="absolute inset-0 size-full object-cover transition-transform duration-700 group-hover:scale-110"
+            />
+          ) : (
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(255,178,63,0.25),transparent_55%)] transition-transform duration-700 group-hover:scale-125" />
+          )}
+          <span className="absolute left-5 top-5 z-10 text-3xl">{s.flag}</span>
+          <button
+            type="button"
+            onClick={() => setPlaying(true)}
+            disabled={!s.youtubeId}
+            className="absolute left-1/2 top-1/2 z-10 grid size-[72px] -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-ink text-night transition-transform duration-500 group-hover:scale-110 disabled:opacity-60"
+            aria-label={`Play story from student in ${s.country}`}
+          >
+            <Play className="ml-1 size-6 fill-current" />
+          </button>
+          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-night via-night/80 to-transparent p-5 pt-20">
+            <Quote className="size-5 text-wattle" />
+            <p className="mt-2 text-[15px] leading-snug text-ink/90">{s.quote}</p>
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
 export function Stories() {
   const [filter, setFilter] = useState("all");
   const shown = STORIES.filter((s) => filter === "all" || s.r === filter);
@@ -46,21 +91,7 @@ export function Stories() {
                 exit={{ opacity: 0, scale: 0.85 }}
                 transition={{ duration: 0.6, delay: i * 0.06, ease: EASE }}
               >
-                <div className="relative aspect-[4/5] overflow-hidden bg-gradient-to-b from-indigo-900/60 via-deep to-night">
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(255,178,63,0.25),transparent_55%)] transition-transform duration-700 group-hover:scale-125" />
-                  <span className="absolute left-5 top-5 text-3xl">{s.flag}</span>
-                  <button
-                    type="button"
-                    className="absolute left-1/2 top-1/2 grid size-[72px] -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-ink text-night transition-transform duration-500 group-hover:scale-110"
-                    aria-label={`Play story from student in ${s.country}`}
-                  >
-                    <Play className="ml-1 size-6 fill-current" />
-                  </button>
-                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-night to-transparent p-5 pt-20">
-                    <Quote className="size-5 text-wattle" />
-                    <p className="mt-2 text-[15px] leading-snug text-ink/90">{s.quote}</p>
-                  </div>
-                </div>
+                <StoryVideo s={s} />
                 <div className="p-5">
                   <p className="font-display text-lg font-bold">{s.name}</p>
                   <p className="text-sm text-mute">
