@@ -140,20 +140,36 @@ export const CREDENTIALS = [
   { flag: "🌍", country: "More destinations", status: "In progress", title: "Additional country registrations are on the way.", soon: true },
 ];
 
+// Partnership photos. Edit the caption and add a place/date (e.g. "Colombo, Sri Lanka \u00b7 2026") for each one.
 export const PARTNERSHIPS = [
-  { caption: "Partnership meeting with [Institution]", place: "Colombo, Sri Lanka · 2026" },
-  { caption: "University partnership discussion", place: "Melbourne, Australia · 2026" },
-  { caption: "Industry collaboration", place: "Sri Lanka · 2026" },
-  { caption: "Education fair", place: "[City] · 2026" },
-  { caption: "Institution visit", place: "[City] · 2026" },
+  { src: "/images/partnerships/img_1781.webp", caption: "Official partnership signing", place: "" },
+  { src: "/images/partnerships/img_9589.webp", caption: "Agreement exchange with institution partners", place: "" },
+  { src: "/images/partnerships/img_9650.webp", caption: "MOU signing ceremony", place: "" },
+  { src: "/images/partnerships/img_1782.webp", caption: "Agreement signing with university partners", place: "" },
+  { src: "/images/partnerships/img_5353.webp", caption: "Partnership agreement signing", place: "" },
+  { src: "/images/partnerships/img_5542.webp", caption: "Industry collaboration", place: "" },
+  { src: "/images/partnerships/img_9590.webp", caption: "MOU signing with institution partners", place: "" },
+  { src: "/images/partnerships/img_5347.webp", caption: "Institution partnership meeting", place: "" },
+  { src: "/images/partnerships/img_5354.webp", caption: "Partnership discussion", place: "" },
+  { src: "/images/partnerships/img_4097.webp", caption: "Technical training institute visit", place: "" },
+  { src: "/images/partnerships/img_1783.webp", caption: "Institution visit", place: "" },
+  { src: "/images/partnerships/img_8124.webp", caption: "Education and employment partnership event", place: "" },
+  { src: "/images/partnerships/img_9491.webp", caption: "Education and migration forum", place: "" },
+  { src: "/images/partnerships/img_0367.webp", caption: "Industry award recognition", place: "" },
+  { src: "/images/partnerships/img_8123.webp", caption: "Education expo stand", place: "" },
+  { src: "/images/partnerships/img_0646.webp", caption: "University campus visit", place: "" },
+  { src: "/images/partnerships/img_0644.webp", caption: "Campus visit", place: "" },
+  { src: "/images/partnerships/img_0540.webp", caption: "Partner meeting", place: "" },
 ];
 
 // Add a YouTube video id to show the real video instead of the placeholder.
+// youtubeId: the id from a YouTube link (youtube.com/watch?v=THIS_PART).
+// These are sample videos for testing — swap them for Thejan's own tour videos.
 export const TOURS = [
-  { title: "Australian university visit", country: "Australia", flag: "🇦🇺", youtubeId: "" },
-  { title: "University of West London campus tour", country: "United Kingdom", flag: "🇬🇧", youtubeId: "" },
-  { title: "University visit", country: "Malaysia", flag: "🇲🇾", youtubeId: "" },
-  { title: "University visit", country: "Sri Lanka", flag: "🇱🇰", youtubeId: "" },
+  { title: "Australian university visit", country: "Australia", flag: "🇦🇺", youtubeId: "aqz-KE-bpKQ" },
+  { title: "University of West London campus tour", country: "United Kingdom", flag: "🇬🇧", youtubeId: "1La4QzGeaaQ" },
+  { title: "University visit", country: "Malaysia", flag: "🇲🇾", youtubeId: "jNQXAC9IVRw" },
+  { title: "University visit", country: "Sri Lanka", flag: "🇱🇰", youtubeId: "aqz-KE-bpKQ" },
 ];
 
 export const STORY_FILTERS = [
@@ -164,11 +180,13 @@ export const STORY_FILTERS = [
   { key: "asia", label: "Asia" },
 ];
 
+// youtubeId: the id from a YouTube link (youtube.com/watch?v=THIS_PART). Short/Reels links work too.
+// These are sample videos for testing — replace with real student stories (with their permission).
 export const STORIES = [
-  { r: "au", name: "[Student name]", flag: "🇦🇺", country: "Australia", program: "Nursing", quote: "From my first consultation to enrolment…" },
-  { r: "uk", name: "[Student name]", flag: "🇬🇧", country: "United Kingdom", program: "Master's", quote: "[Short quote from the video]" },
-  { r: "asia", name: "[Student name]", flag: "🇲🇾", country: "Malaysia", program: "Bachelor's", quote: "[Short quote from the video]" },
-  { r: "nz", name: "[Student name]", flag: "🇳🇿", country: "New Zealand", program: "Business", quote: "[Short quote from the video]" },
+  { r: "au", name: "[Student name]", flag: "🇦🇺", country: "Australia", program: "Nursing", quote: "From my first consultation to enrolment…", youtubeId: "aqz-KE-bpKQ" },
+  { r: "uk", name: "[Student name]", flag: "🇬🇧", country: "United Kingdom", program: "Master's", quote: "[Short quote from the video]", youtubeId: "1La4QzGeaaQ" },
+  { r: "asia", name: "[Student name]", flag: "🇲🇾", country: "Malaysia", program: "Bachelor's", quote: "[Short quote from the video]", youtubeId: "jNQXAC9IVRw" },
+  { r: "nz", name: "[Student name]", flag: "🇳🇿", country: "New Zealand", program: "Business", quote: "[Short quote from the video]", youtubeId: "" },
 ];
 
 export const REVIEWS = [
