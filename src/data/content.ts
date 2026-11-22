@@ -166,10 +166,16 @@ export const PARTNERSHIPS = [
 // youtubeId: the id from a YouTube link (youtube.com/watch?v=THIS_PART).
 // These are sample videos for testing — swap them for Thejan's own tour videos.
 export const TOURS = [
-  { title: "Australian university visit", country: "Australia", flag: "🇦🇺", youtubeId: "aqz-KE-bpKQ" },
-  { title: "University of West London campus tour", country: "United Kingdom", flag: "🇬🇧", youtubeId: "1La4QzGeaaQ" },
-  { title: "University visit", country: "Malaysia", flag: "🇲🇾", youtubeId: "jNQXAC9IVRw" },
-  { title: "University visit", country: "Sri Lanka", flag: "🇱🇰", youtubeId: "aqz-KE-bpKQ" },
+  { title: "From Sri Lanka to Australia with AusAsia", country: "Australia", flag: "🇦🇺", youtubeId: "C6tgm_TYXVw" },
+  { title: "Sathsara's Australian nursing dream", country: "Australia", flag: "🇦🇺", youtubeId: "Ufu9zgKMX9I" },
+  { title: "Student life at IHM Australia", country: "Australia", flag: "🇦🇺", youtubeId: "Bc0jlUwbBg0" },
+  { title: "Sapna's nursing journey at La Trobe College", country: "Australia", flag: "🇦🇺", youtubeId: "6SiDafJdXW0" },
+  { title: "Apsara's story: an Australian dream realised", country: "Australia", flag: "🇦🇺", youtubeId: "OxnUhpwqvHI" },
+  { title: "A genuine Australian qualification from Sri Lanka", country: "Sri Lanka · Australia", flag: "🇱🇰", youtubeId: "Wl41usza4LY" },
+  { title: "Anuhas's story: arriving in Australia at 17", country: "Australia", flag: "🇦🇺", youtubeId: "oWYiNsZlE-U" },
+  { title: "Nimesh's story: a smart study-to-PR pathway", country: "Australia", flag: "🇦🇺", youtubeId: "i45ptqYZ8X8" },
+  { title: "Podcast: student visa to PR strategy", country: "Australia", flag: "🇦🇺", youtubeId: "OKO_GB0npAk" },
+  { title: "Migration Talks Ep. 01: a home within 6 months", country: "Australia", flag: "🇦🇺", youtubeId: "fwXKl-rxmfw" },
 ];
 
 export const STORY_FILTERS = [
