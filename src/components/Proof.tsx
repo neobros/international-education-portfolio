@@ -240,7 +240,7 @@ function TourCard({ t, i }: { t: (typeof TOURS)[number]; i: number }) {
       initial={{ opacity: 0, y: 60 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.9, delay: i * 0.1, ease: EASE }}
+      transition={{ duration: 0.9, delay: (i % 4) * 0.1, ease: EASE }}
     >
       <div className="relative aspect-video overflow-hidden bg-gradient-to-br from-panel via-deep to-night">
         {playing && t.youtubeId ? (
@@ -261,7 +261,7 @@ function TourCard({ t, i }: { t: (typeof TOURS)[number]; i: number }) {
               />
             )}
             <span className="absolute left-4 top-4 z-10 text-3xl">{t.flag}</span>
-            <span className="absolute bottom-3 right-4 z-10 font-display text-6xl font-extrabold text-white/[0.06]">0{i + 1}</span>
+            <span className="absolute bottom-3 right-4 z-10 font-display text-6xl font-extrabold text-white/[0.06]">{String(i + 1).padStart(2, "0")}</span>
             <button
               type="button"
               onClick={() => setPlaying(true)}
@@ -278,7 +278,7 @@ function TourCard({ t, i }: { t: (typeof TOURS)[number]; i: number }) {
         )}
       </div>
       <div className="p-5">
-        <h3 className="text-lg font-bold leading-snug">{t.title}</h3>
+        <h3 className="line-clamp-2 text-lg font-bold leading-snug">{t.title}</h3>
         <p className="mt-1 text-sm text-mute">{t.country}</p>
       </div>
     </motion.article>

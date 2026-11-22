@@ -216,13 +216,19 @@ Same data as JSON:
 
 | Video title | Country |
 |---|---|
-| University of West London campus tour | 🇬🇧 United Kingdom |
-| University visit | 🇲🇾 Malaysia |
-| University visit | 🇦🇺 Australia |
-| University visit | 🇱🇰 Sri Lanka |
+| From Sri Lanka to Australia with AusAsia | 🇦🇺 Australia |
+| Sathsara's Australian nursing dream | 🇦🇺 Australia |
+| Student life at IHM Australia | 🇦🇺 Australia |
+| Sapna's nursing journey at La Trobe College | 🇦🇺 Australia |
+| Apsara's story: an Australian dream realised | 🇦🇺 Australia |
+| A genuine Australian qualification from Sri Lanka | 🇱🇰 Sri Lanka · Australia |
+| Anuhas's story: arriving in Australia at 17 | 🇦🇺 Australia |
+| Nimesh's story: a smart study-to-PR pathway | 🇦🇺 Australia |
+| Podcast: student visa to PR strategy | 🇦🇺 Australia |
+| Migration Talks Ep. 01: a home within 6 months | 🇦🇺 Australia |
 
 - **CTA:** View all university tours
-- > Note: Replace each thumbnail with a YouTube embed or a short clip. Your final website host must allow embeds.
+- > Each card is a click-to-play YouTube embed (youtube-nocookie.com) with the video's own thumbnail.
 
 ---
 
